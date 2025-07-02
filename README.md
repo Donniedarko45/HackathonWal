@@ -1,132 +1,295 @@
-# RetailFlow - Integrated Supply Chain Management Platform
+# 🚚 Supply Chain Management System
 
-## 🎯 Project Overview
-RetailFlow is a comprehensive supply chain software solution designed for retail businesses to optimize inventory management, delivery routes, and supply chain visibility. Built for hackathon demonstration with real-world applicability.
+A comprehensive, modern supply chain management solution built for hackathons and real-world applications. This system provides end-to-end visibility and control over inventory management, order processing, last-mile delivery optimization, and supply chain analytics.
 
-## 🚀 Core Features
+## 🎯 **Project Overview**
 
-### 1. Inventory Management System
-- **Real-time Inventory Tracking**: Live stock level monitoring across multiple locations
-- **Automated Reordering**: Smart reorder points based on demand patterns
-- **Multi-location Management**: Centralized view of inventory across warehouses
-- **SKU Management**: Comprehensive product catalog with detailed tracking
-- **Audit Trail**: Complete transaction history and stock movements
+This is a full-stack application featuring:
 
-### 2. Last-Mile Delivery Optimization
-- **AI-Powered Route Planning**: Machine learning algorithms for optimal delivery routes
-- **Real-time Traffic Integration**: Dynamic route adjustments based on current conditions
-- **Cluster Delivery**: Consolidation of orders in high-density areas
-- **Delivery Performance Analytics**: KPIs for on-time delivery and efficiency
+### **Backend (Node.js + TypeScript + PostgreSQL)**
+- **Express.js** REST API with TypeScript
+- **PostgreSQL** database with Prisma ORM
+- **Socket.IO** for real-time updates
+- **JWT Cookie-based authentication**
+- **Comprehensive API endpoints** for all supply chain operations
 
-### 3. Supply Chain Analytics & Visibility
-- **Interactive Dashboard**: Real-time KPI monitoring and performance metrics
-- **Predictive Analytics**: Demand forecasting and inventory optimization
-- **End-to-End Visibility**: Complete supply chain transparency
-- **Performance Metrics**: OTD, OTIF, LIFR tracking
+### **Frontend (React + TypeScript + Tailwind CSS)**
+- **React 19** with TypeScript
+- **Tailwind CSS** for modern, responsive UI
+- **Chart.js & Recharts** for data visualization
+- **Zustand** for state management
+- **Real-time updates** via Socket.IO
+- **Role-based dashboard** interfaces
 
-## 🛠 Technology Stack
+## 🌟 **Core Features**
+
+### 📦 **Inventory Management**
+- Real-time inventory tracking across multiple locations
+- Automated low-stock alerts and reordering points
+- Stock adjustment with audit trails
+- Multi-location inventory visibility
+- Product categorization and supplier tracking
+
+### 📋 **Order Management**
+- Purchase orders, sales orders, and transfers
+- Order status tracking and fulfillment
+- Automated inventory reservation
+- Priority-based order processing
+- Order analytics and reporting
+
+### 🚛 **Last-Mile Delivery Optimization**
+- AI-powered route planning and optimization
+- Driver assignment and tracking
+- Real-time delivery status updates
+- Delivery performance analytics
+- Cost optimization algorithms
+
+### 📊 **Supply Chain Analytics**
+- Real-time KPI dashboards
+- Performance benchmarking
+- Inventory turnover analysis
+- Supplier performance tracking
+- Financial metrics and trends
+
+### 🏢 **Multi-Location Support**
+- Warehouse, store, and distribution center management
+- Location-based inventory tracking
+- Proximity-based optimization
+- City-wise performance analysis
+
+## 🛠 **Technology Stack**
 
 ### Backend
-- **Runtime**: Node.js with Express.js
-- **Database**: SQLite (development) → PostgreSQL (production)
-- **Authentication**: JWT-based auth system
-- **APIs**: RESTful API design with OpenAPI documentation
-- **Real-time**: WebSocket integration for live updates
+- **Runtime**: Node.js with TypeScript
+- **Framework**: Express.js
+- **Database**: PostgreSQL
+- **ORM**: Prisma
+- **Authentication**: JWT with httpOnly cookies
+- **Real-time**: Socket.IO
+- **Validation**: Zod
+- **Security**: Helmet, CORS, bcrypt
 
 ### Frontend
-- **Framework**: React 18 with TypeScript
-- **Styling**: Tailwind CSS for responsive design
-- **State Management**: React Context + Hooks
-- **Charts**: Chart.js for data visualization
-- **Maps**: Leaflet for delivery route visualization
+- **Framework**: React 19 with TypeScript
+- **Styling**: Tailwind CSS
+- **State Management**: Zustand
+- **Routing**: React Router v6
+- **Charts**: Chart.js + React-Chartjs-2, Recharts
+- **Icons**: Lucide React
+- **HTTP Client**: Axios
+- **Notifications**: React Hot Toast
+- **Forms**: React Hook Form
 
-### AI/ML & Analytics
-- **Route Optimization**: Custom algorithms with traffic integration
-- **Demand Forecasting**: Time series analysis
-- **Predictive Models**: Basic machine learning for supply chain insights
+## 🚀 **Getting Started**
 
-## 📅 Development Timeline (24-Hour Hackathon)
+### Prerequisites
+- **Node.js** (v18 or higher)
+- **PostgreSQL** (v13 or higher)
+- **npm** or **yarn**
 
-### Phase 1: Setup & Planning (Hours 1-6)
-- [x] Project architecture design
-- [ ] Database schema creation
-- [ ] API endpoint planning
-- [ ] Frontend component structure
-- [ ] Development environment setup
+### 1. Clone the Repository
+\`\`\`bash
+git clone <repository-url>
+cd HackathonWalmart
+\`\`\`
 
-### Phase 2: Core Development (Hours 7-18)
-- [ ] Backend API development
-- [ ] Database implementation
-- [ ] Frontend dashboard creation
-- [ ] Inventory management features
-- [ ] Basic analytics implementation
-- [ ] Real-time data integration
+### 2. Backend Setup
 
-### Phase 3: Integration & Polish (Hours 19-24)
-- [ ] End-to-end testing
-- [ ] Performance optimization
-- [ ] Demo data preparation
-- [ ] Presentation materials
-- [ ] Deployment setup
+\`\`\`bash
+cd Backend
 
-## 🎯 MVP Scope (Core Features)
-1. **Inventory Dashboard**: Real-time stock levels and alerts
-2. **Order Management**: Basic order processing and tracking
-3. **Delivery Tracking**: Simple route visualization
-4. **Analytics**: Key performance indicators and trends
-5. **Integration APIs**: RESTful endpoints for external systems
-
-## 📊 Key Metrics & KPIs
-- **On-Time Delivery (OTD)**: Target >95%
-- **Inventory Accuracy**: Target >99%
-- **Order Fill Rate**: Target >98%
-- **Route Efficiency**: Minimize distance and time
-- **Cost Optimization**: Reduce operational expenses
-
-## 🔧 Installation & Setup
-```bash
-# Clone the repository
-git clone [repository-url]
-cd RetailFlow
-
-# Install backend dependencies
-cd backend
+# Install dependencies
 npm install
 
-# Install frontend dependencies
-cd ../frontend
-npm install
+# Create environment file
+cp .env.example .env
 
-# Start development servers
+# Edit .env with your database credentials
+# DATABASE_URL="postgresql://username:password@localhost:5432/supply_chain_db"
+# JWT_SECRET="your-super-secret-jwt-key-here"
+
+# Generate Prisma client
+npx prisma generate
+
+# Run database migrations
+npx prisma migrate dev
+
+# Optional: Seed database with sample data
+npx prisma db seed
+
+# Start development server
 npm run dev
-```
+\`\`\`
 
-## 🏗 Architecture Overview
-```
-┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
-│   Frontend      │    │   Backend API   │    │   Database      │
-│   (React)       │◄──►│   (Node.js)     │◄──►│   (SQLite)      │
-└─────────────────┘    └─────────────────┘    └─────────────────┘
-         │                       │                       │
-         ▼                       ▼                       ▼
-┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
-│   WebSocket     │    │   AI/ML Engine  │    │   External APIs │
-│   (Real-time)   │    │   (Analytics)   │    │   (Maps, etc.)  │
-└─────────────────┘    └─────────────────┘    └─────────────────┘
-```
+The backend will be running on **http://localhost:3001**
 
-## 📈 Future Enhancements
-- IoT sensor integration
-- Blockchain for transparency
-- Advanced ML models
-- Mobile applications
-- Enterprise integrations
+### 3. Frontend Setup
 
-## 👥 Target Users
-- **Warehouse Managers**: Inventory oversight and management
-- **Logistics Coordinators**: Delivery planning and optimization
-- **Supply Chain Analysts**: Performance monitoring and insights
-- **Business Executives**: Strategic decision-making
+\`\`\`bash
+cd Frontend
 
-## 📝 License
-MIT License - Open source for hackathon and educational purposes 
+# Install dependencies
+npm install
+
+# Create environment file
+cp .env.example .env
+
+# Start development server
+npm run dev
+\`\`\`
+
+The frontend will be running on **http://localhost:5173**
+
+## 📊 **Database Schema**
+
+The system uses a comprehensive PostgreSQL schema with the following key entities:
+
+- **Users**: Authentication and role management
+- **Locations**: Warehouses, stores, distribution centers
+- **Suppliers**: Vendor management and performance tracking
+- **Products & Categories**: Product catalog with categorization
+- **Inventory**: Multi-location stock tracking
+- **Orders & Order Items**: Purchase/sales order management
+- **Deliveries**: Last-mile delivery tracking
+- **Analytics**: Performance metrics and KPIs
+
+## 🎨 **UI Components & Features**
+
+### Dashboard
+- **Real-time metrics** overview
+- **Interactive charts** and graphs
+- **Low stock alerts**
+- **Recent activity** feed
+
+### Inventory Management
+- **Stock level** tracking
+- **Multi-location** inventory view
+- **Adjustment** capabilities
+- **Reorder point** management
+
+### Order Processing
+- **Order creation** and editing
+- **Status tracking**
+- **Fulfillment** workflow
+- **Order analytics**
+
+### Delivery Optimization
+- **Route planning**
+- **Driver assignment**
+- **Real-time tracking**
+- **Performance metrics**
+
+## 🔧 **API Documentation**
+
+### Authentication Endpoints
+- `POST /api/auth/login` - User login
+- `POST /api/auth/register` - User registration
+- `GET /api/auth/me` - Get current user
+- `POST /api/auth/logout` - User logout
+
+### Inventory Endpoints
+- `GET /api/inventory` - Get all inventory items
+- `POST /api/inventory` - Create inventory item
+- `PUT /api/inventory/:id` - Update inventory
+- `POST /api/inventory/:id/adjust` - Adjust stock levels
+
+### Orders Endpoints
+- `GET /api/orders` - Get all orders
+- `POST /api/orders` - Create new order
+- `POST /api/orders/:id/fulfill` - Fulfill order
+- `POST /api/orders/:id/cancel` - Cancel order
+
+### Delivery Endpoints
+- `GET /api/delivery` - Get all deliveries
+- `POST /api/delivery/optimize-route` - Optimize delivery routes
+- `POST /api/delivery/:id/assign-driver` - Assign driver
+
+### Analytics Endpoints
+- `GET /api/analytics/dashboard` - Dashboard metrics
+- `GET /api/analytics/kpis` - Key performance indicators
+- `GET /api/analytics/trends` - Performance trends
+
+## 📱 **Real-time Features**
+
+The system includes real-time updates using Socket.IO:
+
+- **Inventory changes** broadcast to relevant users
+- **Order status updates** in real-time
+- **Delivery tracking** with live location updates
+- **Low stock alerts** pushed to warehouse managers
+- **Performance metrics** updated live on dashboards
+
+## 🔐 **Security Features**
+
+- **JWT authentication** with httpOnly cookies
+- **Role-based access control** (Admin, Manager, Employee, Driver)
+- **Input validation** with Zod schemas
+- **CORS protection**
+- **Helmet** security headers
+- **Password hashing** with bcrypt
+
+## 🎯 **Hackathon-Ready Features**
+
+This system is specifically designed for hackathon demonstrations:
+
+1. **Quick Setup**: Complete environment in under 10 minutes
+2. **Demo Data**: Pre-configured sample data for presentations
+3. **Real-time Demos**: Live updates perfect for audience engagement
+4. **Modern UI**: Beautiful, professional interface
+5. **Comprehensive Features**: End-to-end supply chain coverage
+6. **Scalable Architecture**: Production-ready design patterns
+
+## 🚀 **Deployment**
+
+### Production Build
+
+**Backend:**
+\`\`\`bash
+cd Backend
+npm run build
+npm start
+\`\`\`
+
+**Frontend:**
+\`\`\`bash
+cd Frontend
+npm run build
+npm run preview
+\`\`\`
+
+### Environment Variables
+
+**Backend (.env):**
+\`\`\`
+DATABASE_URL="postgresql://username:password@localhost:5432/supply_chain_db"
+JWT_SECRET="your-production-jwt-secret"
+JWT_EXPIRES_IN="7d"
+PORT=3001
+NODE_ENV="production"
+CORS_ORIGIN="https://your-frontend-domain.com"
+\`\`\`
+
+**Frontend (.env):**
+\`\`\`
+VITE_API_URL=https://your-api-domain.com/api
+\`\`\`
+
+## 🤝 **Contributing**
+
+1. Fork the repository
+2. Create a feature branch: \`git checkout -b feature/amazing-feature\`
+3. Commit changes: \`git commit -m 'Add amazing feature'\`
+4. Push to branch: \`git push origin feature/amazing-feature\`
+5. Open a Pull Request
+
+## 📄 **License**
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 👥 **Team**
+
+Built for hackathons and real-world supply chain optimization.
+
+---
+
+**🎉 Ready to revolutionize supply chain management!** 

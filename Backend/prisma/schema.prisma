@@ -1,0 +1,278 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  name      String
+  role      UserRole @default(EMPLOYEE)
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relationships
+  orders    Order[]
+  deliveries Delivery[]
+
+  @@map("users")
+}
+
+model Location {
+  id        String   @id @default(uuid())
+  name      String
+  address   String
+  city      String
+  state     String
+  zipCode   String
+  latitude  Float?
+  longitude Float?
+  type      LocationType
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relationships
+  inventory      Inventory[]
+  orders         Order[]
+  deliveriesFrom Delivery[] @relation("DeliveryFromLocation")
+  deliveriesTo   Delivery[] @relation("DeliveryToLocation")
+
+  @@map("locations")
+}
+
+model Supplier {
+  id          String   @id @default(uuid())
+  name        String
+  contactName String
+  email       String
+  phone       String
+  address     String
+  city        String
+  state       String
+  zipCode     String
+  rating      Float    @default(0.0)
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relationships
+  products Product[]
+  orders   Order[]
+
+  @@map("suppliers")
+}
+
+model Category {
+  id          String   @id @default(uuid())
+  name        String   @unique
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relationships
+  products Product[]
+
+  @@map("categories")
+}
+
+model Product {
+  id          String   @id @default(uuid())
+  sku         String   @unique
+  name        String
+  description String?
+  categoryId  String
+  supplierId  String
+  unitPrice   Decimal  @db.Decimal(10, 2)
+  weight      Float?
+  dimensions  String?
+  minStock    Int      @default(10)
+  maxStock    Int      @default(1000)
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relationships
+  category    Category @relation(fields: [categoryId], references: [id])
+  supplier    Supplier @relation(fields: [supplierId], references: [id])
+  inventory   Inventory[]
+  orderItems  OrderItem[]
+
+  @@map("products")
+}
+
+model Inventory {
+  id            String   @id @default(uuid())
+  productId     String
+  locationId    String
+  quantity      Int
+  reservedQty   Int      @default(0)
+  reorderPoint  Int      @default(50)
+  lastUpdated   DateTime @default(now())
+  createdAt     DateTime @default(now())
+
+  // Relationships
+  product  Product  @relation(fields: [productId], references: [id])
+  location Location @relation(fields: [locationId], references: [id])
+
+  @@unique([productId, locationId])
+  @@map("inventory")
+}
+
+model Order {
+  id              String      @id @default(uuid())
+  orderNumber     String      @unique
+  customerId      String?
+  supplierId      String?
+  locationId      String
+  orderType       OrderType
+  status          OrderStatus @default(PENDING)
+  totalAmount     Decimal     @db.Decimal(10, 2)
+  shippingCost    Decimal     @default(0.00) @db.Decimal(10, 2)
+  priority        Priority    @default(MEDIUM)
+  expectedDate    DateTime?
+  fulfilledDate   DateTime?
+  notes           String?
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+
+  // Relationships
+  customer   User?       @relation(fields: [customerId], references: [id])
+  supplier   Supplier?   @relation(fields: [supplierId], references: [id])
+  location   Location    @relation(fields: [locationId], references: [id])
+  orderItems OrderItem[]
+  deliveries Delivery[]
+
+  @@map("orders")
+}
+
+model OrderItem {
+  id        String  @id @default(uuid())
+  orderId   String
+  productId String
+  quantity  Int
+  unitPrice Decimal @db.Decimal(10, 2)
+  total     Decimal @db.Decimal(10, 2)
+
+  // Relationships
+  order   Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [productId], references: [id])
+
+  @@map("order_items")
+}
+
+model Delivery {
+  id                String         @id @default(uuid())
+  orderId           String
+  driverId          String?
+  vehicleId         String?
+  fromLocationId    String
+  toLocationId      String?
+  deliveryAddress   String
+  status            DeliveryStatus @default(PENDING)
+  scheduledDate     DateTime
+  actualPickupTime  DateTime?
+  actualDeliveryTime DateTime?
+  estimatedDuration Int? // in minutes
+  actualDuration    Int? // in minutes
+  distance          Float? // in kilometers
+  cost              Decimal        @default(0.00) @db.Decimal(10, 2)
+  notes             String?
+  createdAt         DateTime       @default(now())
+  updatedAt         DateTime       @updatedAt
+
+  // Relationships
+  order        Order     @relation(fields: [orderId], references: [id])
+  driver       User?     @relation(fields: [driverId], references: [id])
+  fromLocation Location  @relation("DeliveryFromLocation", fields: [fromLocationId], references: [id])
+  toLocation   Location? @relation("DeliveryToLocation", fields: [toLocationId], references: [id])
+
+  @@map("deliveries")
+}
+
+model Analytics {
+  id          String      @id @default(uuid())
+  metricType  MetricType
+  value       Decimal     @db.Decimal(15, 2)
+  period      Period
+  date        DateTime
+  locationId  String?
+  productId   String?
+  metadata    Json?
+  createdAt   DateTime    @default(now())
+
+  @@map("analytics")
+}
+
+// Enums
+enum UserRole {
+  ADMIN
+  MANAGER
+  EMPLOYEE
+  DRIVER
+}
+
+enum LocationType {
+  WAREHOUSE
+  STORE
+  DISTRIBUTION_CENTER
+  SUPPLIER
+}
+
+enum OrderType {
+  PURCHASE
+  SALES
+  TRANSFER
+  RETURN
+}
+
+enum OrderStatus {
+  PENDING
+  CONFIRMED
+  PROCESSING
+  SHIPPED
+  DELIVERED
+  CANCELLED
+  RETURNED
+}
+
+enum Priority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+enum DeliveryStatus {
+  PENDING
+  ASSIGNED
+  IN_TRANSIT
+  OUT_FOR_DELIVERY
+  DELIVERED
+  FAILED
+  CANCELLED
+}
+
+enum MetricType {
+  INVENTORY_TURNOVER
+  ORDER_FULFILLMENT_RATE
+  DELIVERY_TIME
+  COST_PER_DELIVERY
+  STOCK_OUT_RATE
+  SUPPLIER_PERFORMANCE
+}
+
+enum Period {
+  DAILY
+  WEEKLY
+  MONTHLY
+  QUARTERLY
+  YEARLY
+}
