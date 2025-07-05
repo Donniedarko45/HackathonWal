@@ -300,21 +300,21 @@ VITE_API_URL=https://your-api-domain.com/api
 
 ## 🚀 **UPDATES**
 
-### 🌟 **Immediate Priorities (Next 1-2 Weeks)**
+### 🌟 **Immediate Prioritie**
 
 - **Frontend UI Implementation (80% Remaining)**: Complete all pages and components based on the existing architecture.
 - **Real-time Charting**: Integrate real-time data feeds into all analytics dashboards.
 - **End-to-End Testing**: Write comprehensive E2E tests for critical user flows.
 - **CI/CD Pipeline**: Set up a full CI/CD pipeline using GitHub Actions for automated testing and deployment.
 
-### ✨ **Key Improvements (Next 1-3 Months)**
+### ✨ **Key Improvement**
 
 - **AI-Powered Demand Forecasting**: Integrate machine learning models to predict future demand based on historical data.
 - **Supplier Portal**: Develop a dedicated portal for suppliers to manage their products, view orders, and track performance.
 - **Advanced Analytics**: Introduce more sophisticated analytics, including cohort analysis, anomaly detection, and predictive insights.
 - **Mobile Application**: Create a lightweight mobile app for drivers and warehouse staff for on-the-go operations.
 
-### ☁️ **Long-Term Vision (Next 6-12 Months)**
+### ☁️ **Long-Term Vision **
 
 - **Multi-Tenant Architecture**: Refactor the system to support multiple organizations on a single instance.
 - **Blockchain for Traceability**: Implement a blockchain ledger for immutable tracking of goods from origin to consumer.
