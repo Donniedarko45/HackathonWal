@@ -7,6 +7,7 @@ A comprehensive, modern supply chain management solution built for hackathons an
 This is a full-stack application featuring:
 
 ### **Backend (Node.js + TypeScript + PostgreSQL)**
+
 - **Express.js** REST API with TypeScript
 - **PostgreSQL** database with Prisma ORM
 - **Socket.IO** for real-time updates
@@ -14,6 +15,7 @@ This is a full-stack application featuring:
 - **Comprehensive API endpoints** for all supply chain operations
 
 ### **Frontend (React + TypeScript + Tailwind CSS)**
+
 - **React 19** with TypeScript
 - **Tailwind CSS** for modern, responsive UI
 - **Chart.js & Recharts** for data visualization
@@ -24,6 +26,7 @@ This is a full-stack application featuring:
 ## 🌟 **Core Features**
 
 ### 📦 **Inventory Management**
+
 - Real-time inventory tracking across multiple locations
 - Automated low-stock alerts and reordering points
 - Stock adjustment with audit trails
@@ -31,6 +34,7 @@ This is a full-stack application featuring:
 - Product categorization and supplier tracking
 
 ### 📋 **Order Management**
+
 - Purchase orders, sales orders, and transfers
 - Order status tracking and fulfillment
 - Automated inventory reservation
@@ -38,6 +42,7 @@ This is a full-stack application featuring:
 - Order analytics and reporting
 
 ### 🚛 **Last-Mile Delivery Optimization**
+
 - AI-powered route planning and optimization
 - Driver assignment and tracking
 - Real-time delivery status updates
@@ -45,6 +50,7 @@ This is a full-stack application featuring:
 - Cost optimization algorithms
 
 ### 📊 **Supply Chain Analytics**
+
 - Real-time KPI dashboards
 - Performance benchmarking
 - Inventory turnover analysis
@@ -52,6 +58,7 @@ This is a full-stack application featuring:
 - Financial metrics and trends
 
 ### 🏢 **Multi-Location Support**
+
 - Warehouse, store, and distribution center management
 - Location-based inventory tracking
 - Proximity-based optimization
@@ -60,6 +67,7 @@ This is a full-stack application featuring:
 ## 🛠 **Technology Stack**
 
 ### Backend
+
 - **Runtime**: Node.js with TypeScript
 - **Framework**: Express.js
 - **Database**: PostgreSQL
@@ -70,6 +78,7 @@ This is a full-stack application featuring:
 - **Security**: Helmet, CORS, bcrypt
 
 ### Frontend
+
 - **Framework**: React 19 with TypeScript
 - **Styling**: Tailwind CSS
 - **State Management**: Zustand
@@ -83,19 +92,21 @@ This is a full-stack application featuring:
 ## 🚀 **Getting Started**
 
 ### Prerequisites
+
 - **Node.js** (v18 or higher)
 - **PostgreSQL** (v13 or higher)
 - **npm** or **yarn**
 
 ### 1. Clone the Repository
-\`\`\`bash
+
+```bash
 git clone <repository-url>
 cd HackathonWalmart
-\`\`\`
+```
 
 ### 2. Backend Setup
 
-\`\`\`bash
+```bash
 cd Backend
 
 # Install dependencies
@@ -119,13 +130,13 @@ npx prisma db seed
 
 # Start development server
 npm run dev
-\`\`\`
+```
 
 The backend will be running on **http://localhost:3001**
 
 ### 3. Frontend Setup
 
-\`\`\`bash
+```bash
 cd Frontend
 
 # Install dependencies
@@ -136,7 +147,7 @@ cp .env.example .env
 
 # Start development server
 npm run dev
-\`\`\`
+```
 
 The frontend will be running on **http://localhost:5173**
 
@@ -156,24 +167,28 @@ The system uses a comprehensive PostgreSQL schema with the following key entitie
 ## 🎨 **UI Components & Features**
 
 ### Dashboard
+
 - **Real-time metrics** overview
 - **Interactive charts** and graphs
 - **Low stock alerts**
 - **Recent activity** feed
 
 ### Inventory Management
+
 - **Stock level** tracking
 - **Multi-location** inventory view
 - **Adjustment** capabilities
 - **Reorder point** management
 
 ### Order Processing
+
 - **Order creation** and editing
 - **Status tracking**
 - **Fulfillment** workflow
 - **Order analytics**
 
 ### Delivery Optimization
+
 - **Route planning**
 - **Driver assignment**
 - **Real-time tracking**
@@ -182,29 +197,34 @@ The system uses a comprehensive PostgreSQL schema with the following key entitie
 ## 🔧 **API Documentation**
 
 ### Authentication Endpoints
+
 - `POST /api/auth/login` - User login
 - `POST /api/auth/register` - User registration
 - `GET /api/auth/me` - Get current user
 - `POST /api/auth/logout` - User logout
 
 ### Inventory Endpoints
+
 - `GET /api/inventory` - Get all inventory items
 - `POST /api/inventory` - Create inventory item
 - `PUT /api/inventory/:id` - Update inventory
 - `POST /api/inventory/:id/adjust` - Adjust stock levels
 
 ### Orders Endpoints
+
 - `GET /api/orders` - Get all orders
 - `POST /api/orders` - Create new order
 - `POST /api/orders/:id/fulfill` - Fulfill order
 - `POST /api/orders/:id/cancel` - Cancel order
 
 ### Delivery Endpoints
+
 - `GET /api/delivery` - Get all deliveries
 - `POST /api/delivery/optimize-route` - Optimize delivery routes
 - `POST /api/delivery/:id/assign-driver` - Assign driver
 
 ### Analytics Endpoints
+
 - `GET /api/analytics/dashboard` - Dashboard metrics
 - `GET /api/analytics/kpis` - Key performance indicators
 - `GET /api/analytics/trends` - Performance trends
@@ -244,42 +264,69 @@ This system is specifically designed for hackathon demonstrations:
 ### Production Build
 
 **Backend:**
-\`\`\`bash
+
+```bash
 cd Backend
 npm run build
 npm start
-\`\`\`
+```
 
 **Frontend:**
-\`\`\`bash
+
+```bash
 cd Frontend
 npm run build
 npm run preview
-\`\`\`
+```
 
 ### Environment Variables
 
 **Backend (.env):**
-\`\`\`
+
+```
 DATABASE_URL="postgresql://username:password@localhost:5432/supply_chain_db"
 JWT_SECRET="your-production-jwt-secret"
 JWT_EXPIRES_IN="7d"
 PORT=3001
 NODE_ENV="production"
 CORS_ORIGIN="https://your-frontend-domain.com"
-\`\`\`
+```
 
 **Frontend (.env):**
-\`\`\`
+
+```
 VITE_API_URL=https://your-api-domain.com/api
-\`\`\`
+```
+
+## 🚀 **UPDATES**
+
+### 🌟 **Immediate Priorities (Next 1-2 Weeks)**
+
+- **Frontend UI Implementation (80% Remaining)**: Complete all pages and components based on the existing architecture.
+- **Real-time Charting**: Integrate real-time data feeds into all analytics dashboards.
+- **End-to-End Testing**: Write comprehensive E2E tests for critical user flows.
+- **CI/CD Pipeline**: Set up a full CI/CD pipeline using GitHub Actions for automated testing and deployment.
+
+### ✨ **Key Improvements (Next 1-3 Months)**
+
+- **AI-Powered Demand Forecasting**: Integrate machine learning models to predict future demand based on historical data.
+- **Supplier Portal**: Develop a dedicated portal for suppliers to manage their products, view orders, and track performance.
+- **Advanced Analytics**: Introduce more sophisticated analytics, including cohort analysis, anomaly detection, and predictive insights.
+- **Mobile Application**: Create a lightweight mobile app for drivers and warehouse staff for on-the-go operations.
+
+### ☁️ **Long-Term Vision (Next 6-12 Months)**
+
+- **Multi-Tenant Architecture**: Refactor the system to support multiple organizations on a single instance.
+- **Blockchain for Traceability**: Implement a blockchain ledger for immutable tracking of goods from origin to consumer.
+- **IoT Integration**: Integrate with IoT sensors for real-time monitoring of warehouse conditions and shipment tracking.
+- **Sustainability Dashboard**: Add a dashboard to track and report on the environmental impact of the supply chain.
 
 ## 🤝 **Contributing**
 
 1. Fork the repository
-2. Create a feature branch: \`git checkout -b feature/amazing-feature\`
-3. Commit changes: \`git commit -m 'Add amazing feature'\`
-4. Push to branch: \`git push origin feature/amazing-feature\`
+2. Create a feature branch: `git checkout -b feature/amazing-feature`
+3. Commit changes: `git commit -m 'Add amazing feature'`
+4. Push to branch: `git push origin feature/amazing-feature`
 5. Open a Pull Request
 
 ## 📄 **License**
@@ -292,4 +339,5 @@ Built for hackathons and real-world supply chain optimization.
 
 ---
 
-**🎉 Ready to revolutionize supply chain management!** 
+**🎉 Ready to revolutionize supply chain management!**
+

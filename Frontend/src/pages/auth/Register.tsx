@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { Eye, EyeOff, UserPlus } from 'lucide-react';
+import { Eye, EyeOff, UserPlus, Mail, Lock, User } from 'lucide-react';
 import { useAuthStore } from '../../store/authStore';
 import toast from 'react-hot-toast';
+import AuthLayout from '../../components/Layout/AuthLayout';
 
 interface RegisterForm {
   name: string;
@@ -45,27 +46,15 @@ const Register: React.FC = () => {
 
   return (
     <div>
-      <div className="mb-6">
-        <h2 className="text-center text-3xl font-bold tracking-tight text-gray-900">
-          Create your account
-        </h2>
-        <p className="mt-2 text-center text-sm text-gray-600">
-          Or{' '}
-          <Link
-            to="/login"
-            className="font-medium text-primary-600 hover:text-primary-500"
-          >
-            sign in to your existing account
-          </Link>
-        </p>
-      </div>
-
       <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
         <div>
-          <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+          <label htmlFor="name" className="block text-sm font-medium text-secondary-foreground">
             Full Name
           </label>
-          <div className="mt-1">
+          <div className="mt-1 relative rounded-md shadow-sm">
+            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <User className="h-5 w-5 text-secondary-foreground" />
+            </div>
             <input
               {...register('name', {
                 required: 'Name is required',
@@ -76,20 +65,23 @@ const Register: React.FC = () => {
               })}
               type="text"
               autoComplete="name"
-              className="input"
-              placeholder="Enter your full name"
+              className="appearance-none block w-full px-3 py-2 pl-10 border border-border bg-input text-primary rounded-md placeholder-secondary-foreground focus:outline-none focus:ring-ring focus:border-ring sm:text-sm"
+              placeholder="John Doe"
             />
-            {errors.name && (
-              <p className="mt-1 text-sm text-red-600">{errors.name.message}</p>
-            )}
           </div>
+          {errors.name && (
+            <p className="mt-2 text-sm text-red-500">{errors.name.message}</p>
+          )}
         </div>
 
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+          <label htmlFor="email" className="block text-sm font-medium text-secondary-foreground">
             Email address
           </label>
-          <div className="mt-1">
+          <div className="mt-1 relative rounded-md shadow-sm">
+            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <Mail className="h-5 w-5 text-secondary-foreground" />
+            </div>
             <input
               {...register('email', {
                 required: 'Email is required',
@@ -100,23 +92,23 @@ const Register: React.FC = () => {
               })}
               type="email"
               autoComplete="email"
-              className="input"
-              placeholder="Enter your email"
+              className="appearance-none block w-full px-3 py-2 pl-10 border border-border bg-input text-primary rounded-md placeholder-secondary-foreground focus:outline-none focus:ring-ring focus:border-ring sm:text-sm"
+              placeholder="you@example.com"
             />
-            {errors.email && (
-              <p className="mt-1 text-sm text-red-600">{errors.email.message}</p>
-            )}
           </div>
+          {errors.email && (
+            <p className="mt-2 text-sm text-red-500">{errors.email.message}</p>
+          )}
         </div>
 
         <div>
-          <label htmlFor="role" className="block text-sm font-medium text-gray-700">
+          <label htmlFor="role" className="block text-sm font-medium text-secondary-foreground">
             Role
           </label>
           <div className="mt-1">
             <select
               {...register('role', { required: 'Role is required' })}
-              className="input"
+              className="appearance-none block w-full px-3 py-2 border border-border bg-input text-primary rounded-md shadow-sm placeholder-secondary-foreground focus:outline-none focus:ring-ring focus:border-ring sm:text-sm"
             >
               <option value="">Select your role</option>
               <option value="ADMIN">Admin</option>
@@ -124,17 +116,20 @@ const Register: React.FC = () => {
               <option value="EMPLOYEE">Employee</option>
               <option value="DRIVER">Driver</option>
             </select>
-            {errors.role && (
-              <p className="mt-1 text-sm text-red-600">{errors.role.message}</p>
-            )}
           </div>
+          {errors.role && (
+            <p className="mt-2 text-sm text-red-500">{errors.role.message}</p>
+          )}
         </div>
 
         <div>
-          <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+          <label htmlFor="password" className="block text-sm font-medium text-secondary-foreground">
             Password
           </label>
-          <div className="mt-1 relative">
+          <div className="mt-1 relative rounded-md shadow-sm">
+            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <Lock className="h-5 w-5 text-secondary-foreground" />
+            </div>
             <input
               {...register('password', {
                 required: 'Password is required',
@@ -145,8 +140,8 @@ const Register: React.FC = () => {
               })}
               type={showPassword ? 'text' : 'password'}
               autoComplete="new-password"
-              className="input pr-10"
-              placeholder="Enter your password"
+              className="appearance-none block w-full px-3 py-2 pl-10 border border-border bg-input text-primary rounded-md placeholder-secondary-foreground focus:outline-none focus:ring-ring focus:border-ring sm:text-sm"
+              placeholder="Password"
             />
             <button
               type="button"
@@ -154,22 +149,25 @@ const Register: React.FC = () => {
               onClick={() => setShowPassword(!showPassword)}
             >
               {showPassword ? (
-                <EyeOff className="h-5 w-5 text-gray-400" />
+                <EyeOff className="h-5 w-5 text-secondary-foreground" />
               ) : (
-                <Eye className="h-5 w-5 text-gray-400" />
+                <Eye className="h-5 w-5 text-secondary-foreground" />
               )}
             </button>
           </div>
           {errors.password && (
-            <p className="mt-1 text-sm text-red-600">{errors.password.message}</p>
+            <p className="mt-2 text-sm text-red-500">{errors.password.message}</p>
           )}
         </div>
 
         <div>
-          <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
+          <label htmlFor="confirmPassword" className="block text-sm font-medium text-secondary-foreground">
             Confirm Password
           </label>
-          <div className="mt-1 relative">
+          <div className="mt-1 relative rounded-md shadow-sm">
+            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <Lock className="h-5 w-5 text-secondary-foreground" />
+            </div>
             <input
               {...register('confirmPassword', {
                 required: 'Please confirm your password',
@@ -177,8 +175,8 @@ const Register: React.FC = () => {
               })}
               type={showConfirmPassword ? 'text' : 'password'}
               autoComplete="new-password"
-              className="input pr-10"
-              placeholder="Confirm your password"
+              className="appearance-none block w-full px-3 py-2 pl-10 border border-border bg-input text-primary rounded-md placeholder-secondary-foreground focus:outline-none focus:ring-ring focus:border-ring sm:text-sm"
+              placeholder="Confirm Password"
             />
             <button
               type="button"
@@ -186,14 +184,14 @@ const Register: React.FC = () => {
               onClick={() => setShowConfirmPassword(!showConfirmPassword)}
             >
               {showConfirmPassword ? (
-                <EyeOff className="h-5 w-5 text-gray-400" />
+                <EyeOff className="h-5 w-5 text-secondary-foreground" />
               ) : (
-                <Eye className="h-5 w-5 text-gray-400" />
+                <Eye className="h-5 w-5 text-secondary-foreground" />
               )}
             </button>
           </div>
           {errors.confirmPassword && (
-            <p className="mt-1 text-sm text-red-600">{errors.confirmPassword.message}</p>
+            <p className="mt-2 text-sm text-red-500">{errors.confirmPassword.message}</p>
           )}
         </div>
 
@@ -201,10 +199,10 @@ const Register: React.FC = () => {
           <button
             type="submit"
             disabled={isLoading}
-            className="btn-primary w-full flex justify-center py-2 px-4"
+            className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-primary-foreground bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-ring disabled:opacity-50"
           >
             {isLoading ? (
-              <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+              <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-primary-foreground"></div>
             ) : (
               <>
                 <UserPlus className="h-5 w-5 mr-2" />
@@ -212,6 +210,14 @@ const Register: React.FC = () => {
               </>
             )}
           </button>
+        </div>
+        <div className="relative flex justify-center text-sm">
+          <div className='flex items-center gap-2'>
+            <span className='text-secondary-foreground'>Already have an account?</span>
+            <Link to="/login" className="font-medium text-accent hover:text-primary">
+              Sign in
+            </Link>
+          </div>
         </div>
       </form>
     </div>

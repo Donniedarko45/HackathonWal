@@ -34,10 +34,15 @@ async function main() {
 
   // Create Categories
   const categories = [];
-  for (let i = 0; i < 5; i++) {
+  const departmentNames = new Set<string>();
+  while (departmentNames.size < 5) {
+    departmentNames.add(faker.commerce.department());
+  }
+
+  for (const name of departmentNames) {
     const category = await prisma.category.create({
       data: {
-        name: faker.commerce.department(),
+        name,
         description: faker.lorem.sentence(),
       },
     });

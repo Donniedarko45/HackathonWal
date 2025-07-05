@@ -68,7 +68,7 @@ function App() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="min-h-screen flex items-center justify-center bg-background">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto"></div>
           <p className="mt-4 text-gray-600">Loading Supply Chain Management System...</p>
@@ -84,7 +84,7 @@ function App() {
           {/* Public routes */}
           <Route path="/login" element={
             <PublicRoute>
-              <AuthLayout>
+              <AuthLayout title="Sign In">
                 <Login />
               </AuthLayout>
             </PublicRoute>
@@ -92,7 +92,7 @@ function App() {
           
           <Route path="/register" element={
             <PublicRoute>
-              <AuthLayout>
+              <AuthLayout title="Register">
                 <Register />
               </AuthLayout>
             </PublicRoute>
@@ -160,10 +160,10 @@ function App() {
           
           {/* 404 route */}
           <Route path="*" element={
-            <div className="min-h-screen flex items-center justify-center bg-gray-50">
+            <div className="min-h-screen flex items-center justify-center bg-background">
               <div className="text-center">
-                <h1 className="text-4xl font-bold text-gray-900 mb-4">404</h1>
-                <p className="text-gray-600 mb-8">Page not found</p>
+                <h1 className="text-4xl font-bold text-foreground mb-4">404</h1>
+                <p className="text-muted-foreground mb-8">Page not found</p>
                 <a href="/dashboard" className="btn-primary px-6 py-3">
                   Back to Dashboard
                 </a>

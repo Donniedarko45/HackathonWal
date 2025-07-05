@@ -3,37 +3,37 @@ import { Truck } from 'lucide-react';
 
 interface AuthLayoutProps {
   children: React.ReactNode;
+  title: string;
+  subtitle?: React.ReactNode;
 }
 
-const AuthLayout: React.FC<AuthLayoutProps> = ({ children }) => {
-  console.log('AuthLayout rendered');
+const AuthLayout: React.FC<AuthLayoutProps> = ({ children, title, subtitle }) => {
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-      <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        {/* Logo */}
-        <div className="flex justify-center">
-          <div className="flex items-center">
-            <Truck className="h-12 w-12 text-primary-600" />
-            <span className="ml-2 text-2xl font-bold text-gray-900">SupplyChain</span>
-          </div>
+    <div className="min-h-screen bg-background flex items-center justify-center">
+      <div className="flex flex-col md:flex-row w-full max-w-4xl mx-auto shadow-lg rounded-lg overflow-hidden">
+        {/* Left Side - Visual */}
+        <div className="hidden md:flex flex-col justify-center items-center w-1/2 bg-sidebar p-12 text-center">
+            <Truck className="h-16 w-auto text-primary" />
+            <h1 className="mt-4 text-3xl font-bold text-primary">SupplyChain</h1>
+            <p className="mt-2 text-secondary-foreground">Streamlining Your Supply Chain Operations.</p>
         </div>
-        
-        {/* Subtitle */}
-        <h2 className="mt-6 text-center text-xl text-gray-600">
-          Modern Supply Chain Management System
-        </h2>
-      </div>
 
-      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-          {children}
-        </div>
-        
-        {/* Footer text */}
-        <div className="mt-6 text-center">
-          <p className="text-sm text-gray-500">
-            Built for hackathons and real-world supply chain optimization
-          </p>
+        {/* Right Side - Form */}
+        <div className="w-full md:w-1/2 bg-card p-8 sm:p-12">
+            <div className="sm:mx-auto sm:w-full sm:max-w-md">
+                <h2 className="text-center text-2xl font-bold text-primary">
+                {title}
+                </h2>
+                {subtitle && (
+                <p className="mt-2 text-center text-sm text-secondary-foreground">
+                    {subtitle}
+                </p>
+                )}
+            </div>
+
+            <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+                {children}
+            </div>
         </div>
       </div>
     </div>

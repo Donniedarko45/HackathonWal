@@ -4,14 +4,14 @@ import { analyticsApi } from '../services/api';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 const StatCard = ({ icon, title, value, change, changeType }: { icon: React.ReactNode, title: string, value: string, change?: string, changeType?: 'increase' | 'decrease' }) => (
-  <div className="bg-white p-6 rounded-lg shadow-lg">
+  <div className="bg-card p-6 rounded-lg shadow-lg">
     <div className="flex items-center">
-      <div className="bg-indigo-500 text-white p-3 rounded-full">
+      <div className="bg-primary text-primary-foreground p-3 rounded-full">
         {icon}
       </div>
       <div className="ml-4">
-        <p className="text-sm font-medium text-gray-500">{title}</p>
-        <p className="text-2xl font-bold text-gray-900">{value}</p>
+        <p className="text-sm font-medium text-secondary-foreground">{title}</p>
+        <p className="text-2xl font-bold text-primary">{value}</p>
       </div>
     </div>
     {change && changeType && (
@@ -19,7 +19,7 @@ const StatCard = ({ icon, title, value, change, changeType }: { icon: React.Reac
         <span className={`text-sm font-medium ${changeType === 'increase' ? 'text-green-500' : 'text-red-500'}`}>
           {change}
         </span>
-        <span className="text-sm text-gray-500 ml-2">from last month</span>
+        <span className="text-sm text-secondary-foreground ml-2">from last month</span>
       </div>
     )}
   </div>
@@ -49,7 +49,7 @@ const Dashboard: React.FC = () => {
   if (loading) {
     return (
       <div className="flex justify-center items-center h-full">
-        <Loader size={48} className="animate-spin text-indigo-600" />
+        <Loader size={48} className="animate-spin text-primary" />
       </div>
     );
   }
@@ -71,7 +71,7 @@ const Dashboard: React.FC = () => {
 
   return (
     <div>
-      <h1 className="text-3xl font-bold text-gray-800 mb-6">Dashboard</h1>
+      <h1 className="text-3xl font-bold text-primary mb-6">Dashboard</h1>
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {stats.map((stat, index) => (
@@ -80,28 +80,34 @@ const Dashboard: React.FC = () => {
       </div>
 
       <div className="mt-8 grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2 bg-white p-6 rounded-lg shadow-lg">
-          <h2 className="text-xl font-bold text-gray-800 mb-4">Recent Sales</h2>
+        <div className="lg:col-span-2 bg-card p-6 rounded-lg shadow-lg">
+          <h2 className="text-xl font-bold text-primary mb-4">Recent Sales</h2>
           <ResponsiveContainer width="100%" height={320}>
-            <BarChart data={dashboardData.recentSales}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="date" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <Bar dataKey="amount" fill="#8884d8" />
+            <BarChart data={dashboardData?.recentSales || []}>
+              <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.1)" />
+              <XAxis dataKey="date" tick={{ fill: '#a0aec0' }} />
+              <YAxis tick={{ fill: '#a0aec0' }} />
+              <Tooltip 
+                contentStyle={{ 
+                  backgroundColor: '#1F1E1D', 
+                  borderColor: '#3a3a38' 
+                }} 
+                labelStyle={{ color: '#FFFFFF' }}
+              />
+              <Legend wrapperStyle={{ color: '#FFFFFF' }} />
+              <Bar dataKey="amount" fill="#FFFFFF" />
             </BarChart>
           </ResponsiveContainer>
         </div>
-        <div className="bg-white p-6 rounded-lg shadow-lg">
-          <h2 className="text-xl font-bold text-gray-800 mb-4">Recent Activity</h2>
+        <div className="bg-card p-6 rounded-lg shadow-lg">
+          <h2 className="text-xl font-bold text-primary mb-4">Recent Activity</h2>
           <ul className="space-y-4">
-            {dashboardData.recentActivity.map((activity: any, index: number) => (
+            {(dashboardData?.recentActivity || []).map((activity: any, index: number) => (
               <li key={index} className="flex items-center">
-                <div className="bg-green-100 text-green-600 p-2 rounded-full">
+                <div className="bg-green-900 text-green-300 p-2 rounded-full">
                   <ShoppingCart size={18} />
                 </div>
-                <p className="ml-4 text-sm text-gray-700">{activity.message}</p>
+                <p className="ml-4 text-sm text-secondary-foreground">{activity.message}</p>
               </li>
             ))}
           </ul>

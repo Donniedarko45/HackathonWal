@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import { 
   LayoutDashboard, 
   Package, 
@@ -13,93 +13,110 @@ import {
   X
 } from 'lucide-react';
 import { useAuthStore } from '../../store/authStore';
-import { useState, useCallback } from 'react';
-
-interface LayoutProps {
-  children: React.ReactNode;
-}
-
-
 
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { logout } = useAuthStore();
-  console.log('Layout rendered');
+  const [isSidebarOpen, setSidebarOpen] = useState(false);
 
   const handleLogout = async () => {
     try {
       await logout();
-      // Redirect to login page handled by ProtectedRoute/PublicRoute
     } catch (error) {
       console.error('Logout failed:', error);
     }
   };
 
+  const toggleSidebar = () => {
+    setSidebarOpen(!isSidebarOpen);
+  };
+
+  const SidebarContent = () => (
+    <div className="flex flex-col h-full bg-sidebar text-primary">
+      <div className="p-4 border-b border-border flex justify-between items-center">
+        <h1 className="text-2xl font-semibold">SCM</h1>
+        <button onClick={toggleSidebar} className="md:hidden text-secondary-foreground hover:text-primary">
+          <X size={24} />
+        </button>
+      </div>
+      <nav className="mt-4 flex-1">
+        <ul>
+          <li>
+            <NavLink to="/dashboard" className={({ isActive }) => `flex items-center px-4 py-2 text-secondary-foreground hover:text-primary hover:bg-accent ${isActive ? 'bg-accent text-primary' : ''}`}>
+              <LayoutDashboard className="mr-3" /> Dashboard
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/inventory" className={({ isActive }) => `flex items-center px-4 py-2 text-secondary-foreground hover:text-primary hover:bg-accent ${isActive ? 'bg-accent text-primary' : ''}`}>
+              <Package className="mr-3" /> Inventory
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/orders" className={({ isActive }) => `flex items-center px-4 py-2 text-secondary-foreground hover:text-primary hover:bg-accent ${isActive ? 'bg-accent text-primary' : ''}`}>
+              <ShoppingCart className="mr-3" /> Orders
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/deliveries" className={({ isActive }) => `flex items-center px-4 py-2 text-secondary-foreground hover:text-primary hover:bg-accent ${isActive ? 'bg-accent text-primary' : ''}`}>
+              <Truck className="mr-3" /> Deliveries
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/suppliers" className={({ isActive }) => `flex items-center px-4 py-2 text-secondary-foreground hover:text-primary hover:bg-accent ${isActive ? 'bg-accent text-primary' : ''}`}>
+              <Users className="mr-3" /> Suppliers
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/locations" className={({ isActive }) => `flex items-center px-4 py-2 text-secondary-foreground hover:text-primary hover:bg-accent ${isActive ? 'bg-accent text-primary' : ''}`}>
+              <MapPin className="mr-3" /> Locations
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/analytics" className={({ isActive }) => `flex items-center px-4 py-2 text-secondary-foreground hover:text-primary hover:bg-accent ${isActive ? 'bg-accent text-primary' : ''}`}>
+              <BarChart3 className="mr-3" /> Analytics
+            </NavLink>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  );
+
   return (
-    <div className="flex h-screen bg-gray-100">
-      {/* Sidebar */}
-      <aside className="w-64 bg-white shadow-md">
-        <div className="p-4 border-b">
-          <h1 className="text-2xl font-semibold text-gray-800">SCM Dashboard</h1>
-        </div>
-        <nav className="mt-4">
-          <ul>
-            <li>
-              <Link to="/dashboard" className="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-200">
-                <LayoutDashboard className="mr-3" /> Dashboard
-              </Link>
-            </li>
-            <li>
-              <Link to="/inventory" className="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-200">
-                <Package className="mr-3" /> Inventory
-              </Link>
-            </li>
-            <li>
-              <Link to="/orders" className="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-200">
-                <ShoppingCart className="mr-3" /> Orders
-              </Link>
-            </li>
-            <li>
-              <Link to="/deliveries" className="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-200">
-                <Truck className="mr-3" /> Deliveries
-              </Link>
-            </li>
-            <li>
-              <Link to="/suppliers" className="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-200">
-                <Users className="mr-3" /> Suppliers
-              </Link>
-            </li>
-            <li>
-              <Link to="/locations" className="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-200">
-                <MapPin className="mr-3" /> Locations
-              </Link>
-            </li>
-            <li>
-              <Link to="/analytics" className="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-200">
-                <BarChart3 className="mr-3" /> Analytics
-              </Link>
-            </li>
-          </ul>
-        </nav>
+    <div className="flex h-screen bg-background text-primary">
+      {/* Static Sidebar for Desktop */}
+      <aside className="w-64 hidden md:block border-r border-border">
+        <SidebarContent />
       </aside>
+
+      {/* Mobile Sidebar */}
+      <div className={`fixed inset-0 z-30 transition-transform transform ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:hidden`}>
+        <div className="w-64 h-full shadow-lg bg-sidebar">
+          <SidebarContent />
+        </div>
+        <div onClick={toggleSidebar} className="fixed inset-0 bg-background/50"></div>
+      </div>
 
       {/* Main content */}
       <div className="flex-1 flex flex-col overflow-hidden">
         {/* Header */}
-        <header className="flex justify-between items-center p-4 bg-white shadow-md">
-          <h2 className="text-xl font-semibold text-gray-800">Dashboard</h2>
-          <div className="flex items-center">
-            <span className="mr-4 text-gray-700">Welcome, Admin!</span>
+        <header className="flex justify-between items-center p-4 border-b border-border">
+          <button onClick={toggleSidebar} className="md:hidden text-secondary-foreground hover:text-primary">
+            <Menu size={24} />
+          </button>
+          <h2 className="text-xl font-semibold hidden md:block">Dashboard</h2>
+          <div className="flex items-center gap-4">
+            <span className="text-sm text-secondary-foreground hidden sm:block">Welcome, Admin!</span>
             <button
               onClick={handleLogout}
-              className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50"
+              className="flex items-center px-3 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50"
             >
-              Logout
+              <LogOut size={18} className="sm:mr-2" />
+              <span className="hidden sm:inline">Logout</span>
             </button>
           </div>
         </header>
 
         {/* Page content */}
-        <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100 p-4">
+        <main className="flex-1 overflow-x-hidden overflow-y-auto p-4 md:p-6">
           {children}
         </main>
       </div>
