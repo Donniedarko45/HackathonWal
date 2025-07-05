@@ -1,5 +1,5 @@
 import React from 'react';
-import {  NavLink, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { 
   LayoutDashboard, 
   Package, 
@@ -45,37 +45,37 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
           <ul>
             <li>
               <Link to="/dashboard" className="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-200">
-                <FaHome className="mr-3" /> Dashboard
+                <LayoutDashboard className="mr-3" /> Dashboard
               </Link>
             </li>
             <li>
               <Link to="/inventory" className="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-200">
-                <FaBoxOpen className="mr-3" /> Inventory
+                <Package className="mr-3" /> Inventory
               </Link>
             </li>
             <li>
               <Link to="/orders" className="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-200">
-                <FaShoppingCart className="mr-3" /> Orders
+                <ShoppingCart className="mr-3" /> Orders
               </Link>
             </li>
             <li>
               <Link to="/deliveries" className="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-200">
-                <FaTruck className="mr-3" /> Deliveries
+                <Truck className="mr-3" /> Deliveries
               </Link>
             </li>
             <li>
               <Link to="/suppliers" className="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-200">
-                <FaUsers className="mr-3" /> Suppliers
+                <Users className="mr-3" /> Suppliers
               </Link>
             </li>
             <li>
               <Link to="/locations" className="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-200">
-                <FaMapMarkerAlt className="mr-3" /> Locations
+                <MapPin className="mr-3" /> Locations
               </Link>
             </li>
             <li>
               <Link to="/analytics" className="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-200">
-                <FaChartBar className="mr-3" /> Analytics
+                <BarChart3 className="mr-3" /> Analytics
               </Link>
             </li>
           </ul>
